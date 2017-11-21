@@ -1,0 +1,32 @@
+properties <- read.csv("properties_2017.csv")
+properties[which(properties[,'numberofstories']==41),]
+properties2 <- properties[!is.na(properties$numberofstories),]
+properties2$taxamount
+properties3 <- properties2[!is.na(properties2$taxamount),]
+sort(properties3$taxamount)
+properties2$regionidcounty
+table(properties2$regionidcounty)
+summary(properties3[which(properties3[,'regionidcounty']==1286),]$taxvaluedollarcnt)
+# Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's 
+# 2733   203004   339808   425808   520117 34172644        4 
+summary(properties3[which(properties3[,'regionidcounty']==2061),]$taxvaluedollarcnt)
+# Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's 
+# 4544   222709   348674   412403   511270 26879210       12 
+#
+summary(properties3[which(properties3[,'regionidcounty']==3101),]$taxvaluedollarcnt)
+# Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+# 1059    205484    409034   1150386    879180 151895087 
+
+
+p1286<-properties3[which(properties3[,'regionidcounty']==1286),]
+p2061<-properties3[which(properties3[,'regionidcounty']==2061),]
+p3101<-properties3[which(properties3[,'regionidcounty']==3101),]
+
+plot(p1286$garagetotalsqft, p1286$taxvaluedollarcnt)
+plot(p1286$garagecarcnt, p1286$taxvaluedollarcnt)
+plot(p2061$garagecarcnt, p2061$taxvaluedollarcnt)
+plot(p3101$garagecarcnt, p3101$taxvaluedollarcnt)
+plot(p3101$fireplacecnt, p3101$taxvaluedollarcnt)
+plot(p2061$poolsizesum, p2061$taxvaluedollarcnt)
+qqnorm(p2061$poolsizesum)
+qqplot(qexp(ppoints(length(p4$taxvaluedollarcnt))), p4$taxvaluedollarcnt)
