@@ -43,6 +43,7 @@ t.test(properties_700k$taxvaluedollarcnt[properties_700k$bedroomcnt==6],properti
 # p-value = 0.1498
 # Not significat, p value > 0.05. The difference in mean house valuation for houses of 6 and 8 bedrooms is not statistically significant.
 # This is probably a result of the number of houses having 6 and 8 bedrooms are very small.
+dev.off()
 
 #-----------------------------------------------------------
 
@@ -115,7 +116,7 @@ res_spear<-cor(James_properties4$lotsizesquarefeet,James_properties4$taxvaluedol
 # Both correlation coefficients are very close to 0, meaning there is no correlation between the variables. this is further emphasized by the scatter plot. 
 # There is no correlation between lot size and tax value.
 
-
+dev.off()
 #-----------------------------------------------------------
 
 #Analysis of Quality and Year Built vs Tax Value
@@ -158,7 +159,7 @@ qqplot(qexp(ppoints(length(qual12$taxvaluedollarcnt))), qual12$taxvaluedollarcnt
 plot(qual12$regionidneighborhood, qual12$taxvaluedollarcnt)
 # almost normal plot, interesting
 
-
+dev.off()
 #-----------------------------------------------------------
 
 #Analysis of Region vs Tax Value:
