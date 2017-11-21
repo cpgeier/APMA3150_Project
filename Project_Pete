@@ -6,6 +6,7 @@ properties3 <- properties2[!is.na(properties2$taxamount),]
 sort(properties3$taxamount)
 properties2$regionidcounty
 table(properties2$regionidcounty)
+
 summary(properties3[which(properties3[,'regionidcounty']==1286),]$taxvaluedollarcnt)
 # Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's 
 # 2733   203004   339808   425808   520117 34172644        4 
@@ -14,6 +15,15 @@ summary(properties3[which(properties3[,'regionidcounty']==2061),]$taxvaluedollar
 # 4544   222709   348674   412403   511270 26879210       12 
 #
 summary(properties3[which(properties3[,'regionidcounty']==3101),]$taxvaluedollarcnt)
+# Region ID: 1286
+# Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's 
+# 2733   203004   339808   425808   520117 34172644        4 
+
+# Region ID: 2061
+# Min.  1st Qu.   Median     Mean  3rd Qu.     Max.     NA's 
+# 4544   222709   348674   412403   511270 26879210       12 
+
+# Region ID: 3101
 # Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
 # 1059    205484    409034   1150386    879180 151895087 
 
@@ -21,12 +31,22 @@ summary(properties3[which(properties3[,'regionidcounty']==3101),]$taxvaluedollar
 p1286<-properties3[which(properties3[,'regionidcounty']==1286),]
 p2061<-properties3[which(properties3[,'regionidcounty']==2061),]
 p3101<-properties3[which(properties3[,'regionidcounty']==3101),]
-
-plot(p1286$garagetotalsqft, p1286$taxvaluedollarcnt)
-plot(p1286$garagecarcnt, p1286$taxvaluedollarcnt)
-plot(p2061$garagecarcnt, p2061$taxvaluedollarcnt)
-plot(p3101$garagecarcnt, p3101$taxvaluedollarcnt)
-plot(p3101$fireplacecnt, p3101$taxvaluedollarcnt)
-plot(p2061$poolsizesum, p2061$taxvaluedollarcnt)
-qqnorm(p2061$poolsizesum)
-qqplot(qexp(ppoints(length(p4$taxvaluedollarcnt))), p4$taxvaluedollarcnt)
+allVals<-c(p1286$taxvaluedollarcnt, p2061$taxvaluedollarcnt, p3101$taxvaluedollarcnt)
+plot(allVals, col = c("black", "red", "blue"), main = "Tax Value for three regions", ylab = "Tax Value")
+legend(x, y = NULL, legend = c("1286", "2061", "3101"), col = c("black", "red", "blue"))
+region <- c(rep("1286",468620), rep("2061",203756), rep("3101",12935))
+region
+region <- factor(region)
+region
+region_Model = allVals ~ region
+region_Model
+allVals
+boxplot(region_Model, ylab ="Tax Dollar Count", xlab = "Region Code", main="Tax Amount for three regions.")
+results = aov(region_Model)
+print(summary(results))
+# Df    Sum Sq   Mean Sq F value Pr(>F)    
+# region           2 6.763e+15 3.382e+15    6495 <2e-16 ***
+# Residuals   685292 3.568e+17 5.206e+11                   
+# ---
+# Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+# 16 observations deleted due to missingness
